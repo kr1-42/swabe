@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LIBFT_DIR = ./my_libft/
@@ -7,34 +7,55 @@ OBJ_DIR = .obj/
 
 MOVES_DIR = .obj/moves/
 UTILS_DIR = .obj/utils/
-
+LST_UTILS_DIR = .obj/lst_utils/
+PARSING_DIR = .obj/parsing/
+SORT_DIR = .obj/sort/
 INC_DIR = headers/
 
 
-MAIN_SRC = main.c
+
 # Add a list of your push_swap source files here
-SRC_FILES = $(addprefix src/,str_parsing.c \
-	lst_parsing.c \
-	arg_checker.c)
+SRC_FILES = $(addprefix src/,main.c)
 
 UTILS_SRC_FILES = $(addprefix src/utils/,free_mem.c \
 	has_dup.c \
-	ft_err.c)
+	ft_err.c \
+	arg_checker.c\
+	idx_list_values.c)
 
 MOVES_SRC_FILES = $(addprefix src/moves/,ft_push.c \
 	ft_rotate.c \
 	ft_reverse_rotate.c \
 	ft_swap.c)
 
-OBJ_FILES = $(MAIN_SRC:%.c=$(OBJ_DIR)%.o) \
-			$(SRC_FILES:src/%.c=$(OBJ_DIR)%.o) \
+LST_UTILS_SRC_FILES = $(addprefix src/lst_utils/,print_list.c \
+	list_size.c \
+	free_list.c)
+
+PARSING_SRC_FILES = $(addprefix src/parsing/,lst_parsing.c \
+	str_parsing.c)
+
+SORT_SRC_FILES = $(addprefix src/sort/,small_sort.c)
+
+OBJ_FILES = $(SRC_FILES:src/%.c=$(OBJ_DIR)%.o) \
 			$(MOVES_SRC_FILES:src/moves/%.c=$(MOVES_DIR)%.o) \
-			$(UTILS_SRC_FILES:src/utils/%.c=$(UTILS_DIR)%.o)
+			$(UTILS_SRC_FILES:src/utils/%.c=$(UTILS_DIR)%.o) \
+			$(LST_UTILS_SRC_FILES:src/lst_utils/%.c=$(LST_UTILS_DIR)%.o) \
+			$(PARSING_SRC_FILES:src/parsing/%.c=$(PARSING_DIR)%.o) \
+			$(SORT_SRC_FILES:src/sort/%.c=$(SORT_DIR)%.o)
 
 CFLAGS += -I$(INC_DIR)
 
 
 NC = \033[0m
+
+test: $(NAME)
+	if [ -f .tester/test_push_swap.py ]; then \
+		echo "Running push_swap tests..."; \
+	else \
+		git clone  git@github.com:kr1-42/ps_test.git .tester; \
+	fi
+	python3 .tester/test_push_swap.py
 
 all: pre-build $(OBJ_DIR) $(NAME)
 
@@ -42,7 +63,7 @@ pre-build:
 	@clear
 	@echo "Starting compilation..."
 
-$(OBJ_DIR): $(MOVES_DIR) $(UTILS_DIR)
+$(OBJ_DIR): $(MOVES_DIR) $(UTILS_DIR) $(LST_UTILS_DIR) $(PARSING_DIR) $(SORT_DIR)
 	@mkdir -p $(OBJ_DIR)
 
 $(UTILS_DIR):
@@ -51,10 +72,14 @@ $(UTILS_DIR):
 $(MOVES_DIR):
 	@mkdir -p $(MOVES_DIR)
 
-$(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
-	@echo "Compiling $<..."
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compiled $@ successfully!"
+$(LST_UTILS_DIR):
+	@mkdir -p $(LST_UTILS_DIR)
+
+$(PARSING_DIR):
+	@mkdir -p $(PARSING_DIR)
+
+$(SORT_DIR):
+	@mkdir -p $(SORT_DIR)
 
 # Pattern rule for object files
 $(OBJ_DIR)%.o: src/%.c
@@ -72,6 +97,27 @@ $(MOVES_DIR)%.o: src/moves/%.c
 # Pattern rule for utility object files
 $(UTILS_DIR)%.o: src/utils/%.c
 	@mkdir -p $(UTILS_DIR)
+	@echo "Compiling $<..."
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiled $@ successfully!"
+
+# Pattern rule for list utility object files
+$(LST_UTILS_DIR)%.o: src/lst_utils/%.c
+	@mkdir -p $(LST_UTILS_DIR)
+	@echo "Compiling $<..."
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiled $@ successfully!"
+
+# Pattern rule for parsing object files
+$(PARSING_DIR)%.o: src/parsing/%.c
+	@mkdir -p $(PARSING_DIR)
+	@echo "Compiling $<..."
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiled $@ successfully!"
+
+# Pattern rule for sort object files
+$(SORT_DIR)%.o: src/sort/%.c
+	@mkdir -p $(SORT_DIR)
 	@echo "Compiling $<..."
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiled $@ successfully!"
@@ -107,24 +153,24 @@ re: fclean all
 
 
 define SHELL_ART
-                       @@                                                       
-                    %@@@@                                                       
-                 *@@@@@@@                                                       
-               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&                           
-            &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                           
-         /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                           
-        /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                           
-           &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@                     
-              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@%                  
-                .@@@@@@@@                               @@@@@@@@                
-                   %@@@@@   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             
-                      @@@   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&          
-                            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*       
-                            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@         
-                            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@,           
-                            ///////////////////////////(@@@@@@@@@#              
-                                                        @@@@@@@                 
-                                                        @@@@.                   
+                       @@
+                    %@@@@
+                 *@@@@@@@
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&
+            &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+         /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+           &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@
+              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@%
+                .@@@@@@@@                               @@@@@@@@
+                   %@@@@@   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                      @@@   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&
+                            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+                            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@,
+                            ///////////////////////////(@@@@@@@@@#
+                                                        @@@@@@@
+                                                        @@@@.
                                                         @(
 endef
 export SHELL_ART

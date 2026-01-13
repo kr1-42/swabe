@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_err.c                                           :+:      :+:    :+:   */
+/*   idx_list_values.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/18 19:20:31 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/13 15:52:52 by chrilomb         ###   ########.fr       */
+/*   Created: 2026/01/13 17:11:07 by chrilomb          #+#    #+#             */
+/*   Updated: 2026/01/13 17:11:51 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_swap.h"
 
-int	ft_err(void)
+void	idx_list_values(t_lis *list)
 {
-	write(2, ERR_MSG, 6);
-	exit (ERROR);
-	return (ERROR);
-}
+	t_lis	*current;
+	int		index;
 
-void	*ft_error_null(void)
-{
-	write(2, ERR_MSG, 6);
-	exit (ERROR);
-	return (NULL);
+	current = list;
+	index = 0;
+	while (current)
+	{
+		current->index = index;
+		index++;
+		current = current->next;
+	}
 }
