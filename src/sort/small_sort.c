@@ -6,7 +6,7 @@
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 16:59:03 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/13 17:26:07 by chrilomb         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:02:14 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	sort_2_elements(t_lis **list)
 {
-
 	if ((*list)->value > (*list)->next->value)
 		ft_sa(list);
 }

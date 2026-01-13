@@ -49,14 +49,6 @@ CFLAGS += -I$(INC_DIR)
 
 NC = \033[0m
 
-test: $(NAME)
-	if [ -f .tester/test_push_swap.py ]; then \
-		echo "Running push_swap tests..."; \
-	else \
-		git clone  git@github.com:kr1-42/ps_test.git .tester; \
-	fi
-	python3 .tester/test_push_swap.py
-
 all: pre-build $(OBJ_DIR) $(NAME)
 
 pre-build:
@@ -150,6 +142,15 @@ fclean: clean
 	@clear
 
 re: fclean all
+
+test: $(OBJ_FILES) $(NAME)
+	@if [ -f .tester/test_push_swap.py ]; then \
+		echo "Running push_swap tests..."; \
+	else \
+		git clone https://github.com/kr1-42/ps_test.git .tester; \
+		echo "... now Running push_swap tests..."; \
+	fi
+	@python3 .tester/test_push_swap.py
 
 
 define SHELL_ART
