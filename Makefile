@@ -21,7 +21,8 @@ UTILS_SRC_FILES = $(addprefix src/utils/,free_mem.c \
 	has_dup.c \
 	ft_err.c \
 	arg_checker.c\
-	idx_list_values.c)
+	idx_list_values.c\
+	ft_checksorted.c)
 
 MOVES_SRC_FILES = $(addprefix src/moves/,ft_push.c \
 	ft_rotate.c \
@@ -151,7 +152,14 @@ test: $(OBJ_FILES) $(NAME)
 		echo "... now Running push_swap tests..."; \
 	fi
 	@python3 .tester/test_push_swap.py
-
+testval: $(OBJ_FILES) $(NAME)
+	@if [ -f .tester/test_push_swap.py ]; then \
+		echo "Running push_swap tests..."; \
+	else \
+		git clone https://github.com/kr1-42/ps_test.git .tester; \
+		echo "... now Running push_swap tests..."; \
+	fi
+	@python3 .tester/test_push_swap.py --valgrind --tests=100
 
 define SHELL_ART
                        @@

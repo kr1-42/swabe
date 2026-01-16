@@ -5,74 +5,112 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/13 16:59:03 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/13 18:02:14 by chrilomb         ###   ########.fr       */
+/*   Created: 2026/01/15 16:03:37 by chrilomb          #+#    #+#             */
+/*   Updated: 2026/01/16 18:08:51 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_swap.h"
 
-static void	sort_2_elements(t_lis **list)
+void	push_smallest_to_b(t_lis **stack_a)
 {
-	if ((*list)->value > (*list)->next->value)
-		ft_sa(list);
+	t_lis	*current;
+	int		smallest;
+	int		position;
+	int		index;
+
+	current = *stack_a;
+	smallest = current->value;
+	position = 0;
+	index = 0;
+	while (current)
+	{
+		if (current->value < smallest)
+		{
+			smallest = current->value;
+			position = index;
+		}
+		current = current->next;
+		index++;
+	}
+	if (position <= 2)
+		while (position-- > 0)
+			ft_ra(stack_a);
+	else
+		while (position++ < 5)
+			ft_rra(stack_a);
 }
 
-static void	sort_3_elements(t_lis **list)
+void	push_smallest_to_b_4(t_lis **stack_a)
 {
-	int	first;
-	int	second;
-	int	third;
+	t_lis	*current;
+	int		smallest;
+	int		position;
+	int		index;
 
-	first = (*list)->value;
-	second = (*list)->next->value;
-	third = (*list)->next->next->value;
-	if (first > second && second < third && first < third)
-		ft_sa(list);
-	else if (first > second && second > third)
+	current = *stack_a;
+	smallest = current->value;
+	position = 0;
+	index = 0;
+	while (current)
 	{
-		ft_sa(list);
-		ft_rra(list);
+		if (current->value < smallest)
+		{
+			smallest = current->value;
+			position = index;
+		}
+		current = current->next;
+		index++;
 	}
-	else if (first > second && second < third && first > third)
-		ft_ra(list);
-	else if (first < second && second > third && first < third)
-	{
-		ft_sa(list);
-		ft_ra(list);
-	}
-	else if (first < second && second > third && first > third)
-		ft_rra(list);
+	if (position <= 2)
+		while (position-- > 0)
+			ft_ra(stack_a);
+	else
+		while (position++ < 4)
+			ft_rra(stack_a);
 }
 
-static void	sort_5_elements(t_lis **list)
+void	ft_sort_five(t_lis **stack_a, t_lis **stack_b)
 {
-	t_lis	*stack_b;
-
-	stack_b = NULL;
-	while (list_size(*list) > 3)
-	{
-		if ((*list)->index == 0 || (*list)->index == 1)
-			ft_pb(list, &stack_b);
-		else
-			ft_ra(list);
-	}
-	sort_3_elements(list);
-	if (stack_b && stack_b->index == 1)
-		ft_sb(&stack_b);
-	while (stack_b)
-		ft_pa(list, &stack_b);
+	push_smallest_to_b(stack_a);
+	if (ft_checksorted(*stack_a) == SUCCESS)
+		return ;
+	ft_pb(stack_a, stack_b);
+	ft_sort_four(stack_a, stack_b);
+	ft_pa(stack_a, stack_b);
 }
 
-void	sort_small_list(t_lis **list)
+void	ft_sort_four(t_lis **stack_a, t_lis **stack_b)
 {
-	int	size;
+	push_smallest_to_b_4(stack_a);
+	ft_pb(stack_a, stack_b);
+	ft_sort_three(stack_a);
+	ft_pa(stack_a, stack_b);
+}
 
-	size = list_size(*list);
-	if (size == 2)
-		sort_2_elements(list);
-	else if (size == 3)
-		sort_3_elements(list);
-	else if (size > 3 && size <= 5)
-		sort_5_elements(list);
+void	ft_sort_three(t_lis **stack_a)
+{
+	int		a;
+	int		b;
+	int		c;
+
+	a = (*stack_a)->value;
+	b = (*stack_a)->next->value;
+	c = (*stack_a)->next->next->value;
+	if (a > b && b > c && a > c)
+	{
+		ft_sa(stack_a);
+		ft_rra(stack_a);
+	}
+	else if (a > b && a > c && b < c)
+		ft_ra(stack_a);
+	else if (a > b && a < c)
+		ft_sa(stack_a);
+	else if (a < b && b > c && a < c)
+	{
+		ft_sa(stack_a);
+		ft_ra(stack_a);
+	}
+	else if (a < b && b > c && a > c)
+		ft_rra(stack_a);
 }
