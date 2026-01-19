@@ -158,7 +158,8 @@ test: $(OBJ_FILES) $(NAME)
 		git clone https://github.com/kr1-42/ps_test.git .tester; \
 		echo "... now Running push_swap tests..."; \
 	fi
-	@python3 .tester/test_push_swap.py
+	@python3 .tester/test_push_swap.py --tests=20 --min=-10000 --max=10000
+
 testval: $(OBJ_FILES) $(NAME)
 	@if [ -f .tester/test_push_swap.py ]; then \
 		echo "Running push_swap tests..."; \
@@ -166,7 +167,7 @@ testval: $(OBJ_FILES) $(NAME)
 		git clone https://github.com/kr1-42/ps_test.git .tester; \
 		echo "... now Running push_swap tests..."; \
 	fi
-	@python3 .tester/test_push_swap.py --valgrind --tests=100
+	@python3 .tester/test_push_swap.py --valgrind --tests=100 --min=-10000 --max=10000
 
 define SHELL_ART
                        @@

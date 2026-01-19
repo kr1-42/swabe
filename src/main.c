@@ -6,7 +6,7 @@
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:06:01 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/19 16:05:16 by chrilomb         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:19:21 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int argc, char **argv)
 	if (ft_small_check(&list, &list_b, list_size(list)) == SMALL_SORT)
 		return (free_list(list), SUCCESS);
 	sort_large_list(&list);
-	print_list(list);
 	free_list(list);
 	return (SUCCESS);
 }
