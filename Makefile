@@ -22,7 +22,9 @@ UTILS_SRC_FILES = $(addprefix src/utils/,free_mem.c \
 	ft_err.c \
 	arg_checker.c\
 	idx_list_values.c\
-	ft_checksorted.c)
+	ft_checksorted.c \
+	stack_limits.c \
+	stack_positions.c)
 
 MOVES_SRC_FILES = $(addprefix src/moves/,ft_push.c \
 	ft_rotate.c \
@@ -36,7 +38,12 @@ LST_UTILS_SRC_FILES = $(addprefix src/lst_utils/,print_list.c \
 PARSING_SRC_FILES = $(addprefix src/parsing/,lst_parsing.c \
 	str_parsing.c)
 
-SORT_SRC_FILES = $(addprefix src/sort/,small_sort.c)
+SORT_SRC_FILES = $(addprefix src/sort/,small_sort.c \
+	sort_large_list.c \
+	apply_rotations.c \
+	best_rotations.c \
+	rotate_cases.c \
+	rotate_cases_2.c)
 
 OBJ_FILES = $(SRC_FILES:src/%.c=$(OBJ_DIR)%.o) \
 			$(MOVES_SRC_FILES:src/moves/%.c=$(MOVES_DIR)%.o) \

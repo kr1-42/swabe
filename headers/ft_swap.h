@@ -6,7 +6,7 @@
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:05:26 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/16 17:49:22 by chrilomb         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:04:16 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,13 @@ void	ft_sort_four(t_lis **stack_a, t_lis **stack_b);
  * @param stack_a Stack A.
  */
 void	ft_sort_three(t_lis **stack_a);
+
+// large sort
+/**
+ * @brief Sort lists larger than 5 elements.
+ * @param stack_a Stack A.
+ */
+void	sort_large_list(t_lis **stack_a);
 // moves
 /**
  * @brief Swap the top two of stack A.
@@ -162,6 +169,30 @@ void	ft_rrb(t_lis **stack_b);
  * @param stack_b Stack B.
  */
 void	ft_rrr(t_lis **stack_a, t_lis **stack_b);
+
+// large sort helpers
+int		max_value(t_lis *stack);
+int		min_value(t_lis *stack);
+int		find_index(t_lis *a, int nbr);
+int		find_place_a(t_lis *stack_a, int nbr_push);
+int		find_place_b(t_lis *stack_b, int nbr_push);
+
+int		case_rrarb_a(t_lis *a, t_lis *b, int c);
+int		case_rarrb_a(t_lis *a, t_lis *b, int c);
+int		case_rrarrb_a(t_lis *a, t_lis *b, int c);
+int		case_rarb_a(t_lis *a, t_lis *b, int c);
+int		case_rarrb(t_lis *a, t_lis *b, int c);
+int		case_rrarb(t_lis *a, t_lis *b, int c);
+int		case_rrarrb(t_lis *a, t_lis *b, int c);
+int		case_rarb(t_lis *a, t_lis *b, int c);
+
+int		rotate_type_ba(t_lis *a, t_lis *b);
+int		rotate_type_ab(t_lis *a, t_lis *b);
+
+int		apply_rarb(t_lis **a, t_lis **b, int c, char s);
+int		apply_rrarrb(t_lis **a, t_lis **b, int c, char s);
+int		apply_rrarb(t_lis **a, t_lis **b, int c, char s);
+int		apply_rarrb(t_lis **a, t_lis **b, int c, char s);
 
 // utils
 /**

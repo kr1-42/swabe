@@ -6,7 +6,7 @@
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:06:01 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/16 18:20:00 by chrilomb         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:05:16 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,16 @@ int	main(int argc, char **argv)
 	t_lis	*list;
 	t_lis	*list_b;
 
-	for (
-		int i = 1; i < 64; i++
-	){
-		write(1, argv[i], ft_strlen(argv[i]));
-		write(1, "\n", 1);
-	}
 	if (check_args(argc, argv) == STRING_CASE)
 		list = handle_string_case(argv[1]);
 	else
 		list = handle_list_case(argc, argv);
 	idx_list_values(list);
+	list_b = NULL;
 	if (ft_small_check(&list, &list_b, list_size(list)) == SMALL_SORT)
-		return (/*print_list(list)*/ free_list(list), SUCCESS);
-	// else
-	// 	sort_large_list(&list);
-	//print_list(list);
+		return (free_list(list), SUCCESS);
+	sort_large_list(&list);
+	print_list(list);
 	free_list(list);
 	return (SUCCESS);
 }
