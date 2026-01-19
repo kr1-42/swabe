@@ -151,7 +151,7 @@ fclean: clean
 
 re: fclean all
 
-test: $(OBJ_FILES) $(NAME)
+test: $(OBJ_FILES) $(LIBFT) $(NAME)
 	@if [ -f .tester/test_push_swap.py ]; then \
 		echo "Running push_swap tests..."; \
 	else \
