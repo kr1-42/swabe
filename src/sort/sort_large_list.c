@@ -6,7 +6,7 @@
 /*   By: chrilomb <chrilomb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:00:00 by chrilomb          #+#    #+#             */
-/*   Updated: 2026/01/19 16:04:16 by chrilomb         ###   ########.fr       */
+/*   Updated: 2026/01/20 14:55:09 by chrilomb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,3 @@ void	sort_large_list(t_lis **stack_a)
 		apply_best_move_ba(stack_a, &stack_b);
 	final_rotate(stack_a);
 }
-
